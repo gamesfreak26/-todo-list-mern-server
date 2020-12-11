@@ -22,6 +22,6 @@ This project uses a local instance of MongoDB.  I have included dummy data in `d
 
 I used the following command:
 
-mongoimport --db teej_mern --collection list --file data/seed_example_list.json
+`mongoimport --db teej_mern --collection list --file data/seed_example_list.json`
 
 which creates a database called teej_mern and a collection called list and populates it with things inside seed_example_list.json
