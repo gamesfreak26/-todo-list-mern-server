@@ -24,4 +24,4 @@ I used the following command:
 
 `mongoimport --db teej_mern --collection list --file data/seed_example_list.json`
 
-which creates a database called teej_mern and a collection called list and populates it with things inside seed_example_list.json
+which creates a database called `teej_mern` and a collection called `list` and populates it with things inside `seed_example_list.json`
