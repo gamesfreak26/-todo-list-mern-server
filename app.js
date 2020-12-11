@@ -2,6 +2,8 @@ const express = require("express")
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
 const cors = require('cors');
+const postRouter = require('./routes/list_router');
+const morgan = require('morgan')
 
 const app = express()
 
@@ -29,5 +31,16 @@ mongoose
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(morgan("combined"));
+
+app.get('/', (req, res) => {
+    console.log('get on /');
+    console.log('req.session', req.session)
+    console.log('req.user', req.user)
+    res.send('got your request');
+})
+
+app.use('/list', postRouter);
+
 
 app.listen(port, () => console.log(`Server up and running on port ${port}`))
