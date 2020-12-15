@@ -9,10 +9,6 @@ before((done) => {
     connectToDb(done)
 })
 
-after((done) => {
-    disconnectFromDb(done);
-})
-
 // Setup and tear down functions
 function setupData() {
     let testItem = {};
@@ -29,17 +25,7 @@ beforeEach(async function () {
     listItemId = listItem._id;
 });
 
-function tearDownData() {
-    return Item.deleteMany();
-}
-
-// Delete test data after each test
-afterEach((done) => {
-    // Execute the deleteMany query
-    tearDownData().exec(() => done());
-});
-
-describe('getAllPosts with one post', (done) => {
+describe('getAllItems with one item', (done) => {
     it('should get a post if one exists', function (done) {
         expectedLength = 1;
 
@@ -51,4 +37,46 @@ describe('getAllPosts with one post', (done) => {
             done();
         })
     })
+    // The below allows us to assert multiple things in a test
+    // it('username of first post should be tester', async function () {
+    //     let req = {
+    //         query: {}
+    //     };
+    //     await utilities.getAllItems(req).exec((err, posts) => {
+    //         expect(posts[0].username).toBe('tester');
+    //     });
+
+    // });
+})
+
+describe('add one item to the database', (done) =>{
+    it('should add an item', function(done) {
+        const req = {
+            body: {
+                label: 'Test label 2',
+                username: 'tester2',
+                completed: false
+            }
+        }
+
+        utilities.addOneItem(req.body).save((err, item) => {
+            // check to see if the item's label in the database is the same as the one sent.
+            expect(item.label).toBe(req.body.label)
+            done()
+        })
+    })
+})
+
+function tearDownData() {
+    return Item.deleteMany();
+}
+
+// Delete test data after each test
+afterEach((done) => {
+    // Execute the deleteMany query
+    tearDownData().exec(() => done());
+});
+
+after((done) => {
+    disconnectFromDb(done);
 })
