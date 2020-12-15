@@ -3,7 +3,8 @@ const router = express.Router()
 
 const {
     getItems,
-    addItem
+    addItem,
+    deleteItem
 } = require("../controllers/list_controller")
 
 // READ
@@ -12,5 +13,7 @@ const {
 router.get("/", getItems)
 
 router.post("/", addItem)
+
+router.post("/:id", deleteItem)
 
 module.exports = router

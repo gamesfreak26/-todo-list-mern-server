@@ -1,6 +1,7 @@
 const {
     getAllItems,
-    addOneItem
+    addOneItem,
+    deleteOneItem
 } = require("../utils/list_utilities")
 
 
@@ -24,6 +25,7 @@ const getItems = function(req, res) {
 }
 
 const addItem = function(req, res) {
+    // todo: Look into using update instead of save.
     addOneItem(req.body).save((err, listItem) => {
         if (err) {
             res.status(500)
@@ -38,7 +40,29 @@ const addItem = function(req, res) {
     })
 }
 
+const deleteItem = function(req, res) {
+    console.log("deleteItem")
+	if (req.error) {
+		res.status(req.error.status)
+		res.send(req.error.message)
+	} else {
+		// execute the query from deletePost
+		deleteOneItem(req.params.id).exec(err => {
+			if (err) {
+				res.status(500)
+				res.json({
+					error: err.message
+				})
+            }
+            // The server successfully processed the 
+            // request, and is not returning any content.
+			res.sendStatus(204)
+		})
+	}
+}
+
 module.exports = {
     getItems, 
-    addItem
+    addItem,
+    deleteItem
 }
