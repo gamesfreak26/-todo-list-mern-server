@@ -14,6 +14,6 @@ router.get("/", getItems)
 
 router.post("/", addItem)
 
-router.post("/:id", deleteItem)
+router.delete("/:id", deleteItem)
 
 module.exports = router
