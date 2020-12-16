@@ -12,7 +12,13 @@ const addOneItem = function(item) {
     return new Item(item)
 }
 
+const deleteOneItem = function(id) {
+    console.log(`Deleting item with id: ${id}`)
+    return Item.findByIdAndDelete(id)
+}
+
 module.exports = {
     getAllItems,
-    addOneItem
+    addOneItem,
+    deleteOneItem
 }
