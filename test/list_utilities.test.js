@@ -49,8 +49,8 @@ describe('getAllItems with one item', (done) => {
     // });
 })
 
-describe('add one item to the database', (done) =>{
-    it('should add an item', function(done) {
+describe('add one item to the collection', (done) =>{
+    it('should add the specified item to the list', function(done) {
         const req = {
             body: {
                 label: 'Test label 2',
@@ -65,6 +65,17 @@ describe('add one item to the database', (done) =>{
             done()
         })
     })
+})
+
+describe('delete one item from collection', (done) => {
+    it('should remove the specified post', function (done) {
+        utilities.deleteOneItem(listItemId).exec(() => {
+            Item.findById(listItemId).exec((err, listItem) => {
+                expect(listItem).toBe(null);
+                done();
+            });
+        });
+    });
 })
 
 function tearDownData() {
