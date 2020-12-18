@@ -82,12 +82,9 @@ describe('edit one item from the collection', (done) => {
     it('should update the specified item in the list', function (done) {
 
         const newLabel = { label: "Test label 2" }
-        console.log("Test 2")
+        
         utilities.editOneItem(listItemId, newLabel)
             .exec((err, item) => {
-                // let itemJSON = JSON.parse(item)
-                console.log(err)
-                console.log(item)
                 expect(item.label).toBe(newLabel.label)
                 done();
             })

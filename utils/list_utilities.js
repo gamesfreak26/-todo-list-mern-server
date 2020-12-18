@@ -18,8 +18,15 @@ const deleteOneItem = function(id) {
 }
 
 const editOneItem = function(itemId, update) {
-    return Item.findOneAndUpdate({_id: itemId}, {$set: update}, {upsert: true} )
-    .populate()
+    return Item.findOneAndUpdate({_id: itemId}, 
+        { $set: update }, 
+        { upsert: true }, 
+        (error, doc) => {
+            if (error) {
+                console.log("ERROR: ", error)
+            }
+    })
+    // .populate()
 }
 
 module.exports = {
