@@ -32,19 +32,24 @@ const getItems = function(req, res) {
 }
 
 const addItem = function(req, res) {
-    // todo: Look into using update instead of save.
-    addOneItem(req.body).save((err, listItem) => {
-        if (err) {
-            res.status(500)
-            res.json({
-                error: err.message
-            })
-        }
-        else {
-            res.status(201)
-            res.send(listItem)
-        }
-    })
+    if (req.error) {
+		res.status(req.error.status)
+		res.send(req.error.message)
+    } 
+    else {
+        addOneItem(req.body).save((err, listItem) => {
+            if (err) {
+                res.status(500)
+                res.json({
+                    error: err.message
+                })
+            }
+            else {
+                res.status(201)
+                res.send(listItem)
+            }
+        })
+    }
 }
 
 const deleteItem = function(req, res) {
