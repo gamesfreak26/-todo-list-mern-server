@@ -9,7 +9,12 @@ const {
 // get all posts
 // return a query
 const getItems = function(req, res) {
-    getAllItems()
+    if (req.error) {
+		res.status(req.error.status)
+		res.send(req.error.message)
+    } 
+    else {
+        getAllItems()
         .exec((err, list) => {
             console.log("Error, list", err, list)
             if(err) {
@@ -23,6 +28,7 @@ const getItems = function(req, res) {
                 res.send(list)
             }
         })
+    }
 }
 
 const addItem = function(req, res) {
