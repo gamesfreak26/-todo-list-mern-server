@@ -18,9 +18,13 @@ const deleteOneItem = function(id) {
 }
 
 const editOneItem = function(itemId, update) {
-    return Item.findOneAndUpdate({_id: itemId}, 
+    return Item.findOneAndUpdate(
+        {_id: itemId}, 
         { $set: update }, 
-        { upsert: true }, 
+        {
+            // upsert: true,
+            new: true
+        }, // updates item and inserts it if it does not exist.  
         (error, doc) => {
             if (error) {
                 console.log("ERROR: ", error)

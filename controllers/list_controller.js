@@ -1,7 +1,8 @@
 const {
     getAllItems,
     addOneItem,
-    deleteOneItem
+    deleteOneItem,
+    editOneItem
 } = require("../utils/list_utilities")
 
 
@@ -41,11 +42,11 @@ const addItem = function(req, res) {
 }
 
 const deleteItem = function(req, res) {
-    console.log("deleteItem")
 	if (req.error) {
 		res.status(req.error.status)
 		res.send(req.error.message)
-	} else {
+    } 
+    else {
 		// execute the query from deletePost
 		deleteOneItem(req.params.id).exec(err => {
 			if (err) {
@@ -59,6 +60,30 @@ const deleteItem = function(req, res) {
 			res.sendStatus(204)
 		})
 	}
+}
+
+const editItem = function(req, res) {
+    if (req.error) {
+        res.status(req.error.status)
+        res.sent(req.error.message)
+    }
+    else {
+        editOneItem(req.params.id, req.body)
+            .exec((error, listItem) => {
+                if (error) {
+                    res.status(500)
+                    res.json({
+                        error: err.message
+                    })
+                }
+                else {
+                    res.status(201)
+                    res.send(listItem)
+                }
+            })
+    }
+
+    console.log("edit item")
 }
 
 module.exports = {
