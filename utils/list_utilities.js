@@ -17,8 +17,14 @@ const deleteOneItem = function(id) {
     return Item.findByIdAndDelete(id)
 }
 
+const editOneItem = function(itemId, update) {
+    return Item.findOneAndUpdate({_id: itemId}, {$set: update}, {upsert: true} )
+    .populate()
+}
+
 module.exports = {
     getAllItems,
     addOneItem,
-    deleteOneItem
+    deleteOneItem,
+    editOneItem
 }

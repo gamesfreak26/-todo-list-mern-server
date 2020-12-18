@@ -68,7 +68,7 @@ describe('add one item to the collection', (done) =>{
 })
 
 describe('delete one item from collection', (done) => {
-    it('should remove the specified post', function (done) {
+    it('should remove the specified item', function (done) {
         utilities.deleteOneItem(listItemId).exec(() => {
             Item.findById(listItemId).exec((err, listItem) => {
                 expect(listItem).toBe(null);
@@ -76,6 +76,22 @@ describe('delete one item from collection', (done) => {
             });
         });
     });
+})
+
+describe('edit one item from the collection', (done) => {
+    it('should update the specified item in the list', function (done) {
+
+        const newLabel = { label: "Test label 2" }
+        console.log("Test 2")
+        utilities.editOneItem(listItemId, newLabel)
+            .exec((err, item) => {
+                // let itemJSON = JSON.parse(item)
+                console.log(err)
+                console.log(item)
+                expect(item.label).toBe(newLabel.label)
+                done();
+            })
+    })
 })
 
 function tearDownData() {
