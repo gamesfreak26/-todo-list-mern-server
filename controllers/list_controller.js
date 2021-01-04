@@ -100,5 +100,6 @@ const editItem = function(req, res) {
 module.exports = {
     getItems, 
     addItem,
-    deleteItem
+    deleteItem,
+    editItem
 }
